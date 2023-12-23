@@ -1,6 +1,6 @@
 /** 
  * The HelloWorldApp class implements an application that simply prints "Hello World" to standard output.
- * this is the new commit2 
+ * New commit comment message 5
  */
 public class HelloWorld {
   public static void main(String[] args) {

@@ -5,6 +5,8 @@ pipeline {
       steps {
         script {
           echo 'Stage 1'
+          javac HelloWorld.java
+          java HelloWorld
         }
       }
     }

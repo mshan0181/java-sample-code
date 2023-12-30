@@ -4,9 +4,7 @@ pipeline {
   stage('Stage 1') {
       steps {
         script {
-          echo 'Stage 1'
-          javac HelloWorld.java
-          java HelloWorld
+          echo 'Stage 1'                   
         }
       }
     }

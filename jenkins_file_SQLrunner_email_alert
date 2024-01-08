@@ -5,6 +5,16 @@ node ('master') {
    step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'switchover_status.sql',scriptContent: ''])
    }
    stage('email-test-scipted-pipe') {
-   mail bcc: '', body: 'Hello, This is an email from jenkins pipeline.', cc: '', from: '', replyTo: '', subject: 'EmailJenkinsPipeline', to: 'shandba81@gmail.com'
+   emailext attachLog: true, body:
+   """<p>EXECUTED: Job <b>\'${env.JOB_NAME}:${env.BUILD_NUMBER})\'
+   </b></p><p>View console output at "<a href="${env.BUILD_URL}"> 
+   ${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"</p> 
+        <p><i>(Build log is attached.)</i></p>""", 
+       recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
+        [$class: 'RequesterRecipientProvider']],
+       replyTo: 'shandba81@gmail.com', 
+       subject: "Status:TABLESPACE CRITICAL:'ALERT_MESSAGE'} - 
+    Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'", 
+       to: 'shandba81@gmail.com'
    }
    }

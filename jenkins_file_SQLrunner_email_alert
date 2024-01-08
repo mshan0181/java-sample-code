@@ -10,11 +10,12 @@ node ('master') {
    </b></p><p>View console output at "<a href="${env.BUILD_URL}"> 
    ${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"</p> 
         <p><i>(Build log is attached.)</i></p>""", 
+       compressLog: true,
        recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
         [$class: 'RequesterRecipientProvider']],
        replyTo: 'shandba81@gmail.com', 
        subject: "Status: ${currentBuild.result?:'SUCCESS'} - 
-     Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'", 
-       to: 'shandba81@gmail.com'
+    Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'", 
+       to: 'shandba81@gmail.com'  
    }
    }

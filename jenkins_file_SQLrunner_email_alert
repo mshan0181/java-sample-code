@@ -13,7 +13,7 @@ node ('master') {
        recipientProviders: [[$class: 'DevelopersRecipientProvider'], 
         [$class: 'RequesterRecipientProvider']],
        replyTo: 'shandba81@gmail.com', 
-       subject: "Status:TABLESPACE CRITICAL:'ALERT_MESSAGE'} -Job \'
+       subject: "Status:TABLESPACE CRITICAL:'ALERT_MESSAGE'} -Job\'
        ${env.JOB_NAME}:${env.BUILD_NUMBER}\'", 
        to: 'shandba81@gmail.com'
    }

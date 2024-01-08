@@ -7,7 +7,7 @@ node ('master') {
    stage('email-test-scipted-pipe') {
    emailext (
    subject: emailSubject,
-   body: This is the tablespace ALERT reaching threshold ,
+   body: This is the tablespace ALERT reaching threshold,
    to: shandba81@gmail.com
    )
    }

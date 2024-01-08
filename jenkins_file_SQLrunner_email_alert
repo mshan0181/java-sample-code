@@ -1,5 +1,10 @@
 node ('master') {
+   stage('SQL_execution_from_file') {
    git url: 'https://github.com/mshan0181/java-sample-code.git'
    echo 'SQLPlusRunner running user define script for shandba@client_access'
    step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'switchover_status.sql',scriptContent: ''])
+   }
+   stage('email-test-scipted-pipe') {
+   mail bcc: '', body: 'Hello, This is an email from jenkins pipeline.', cc: '', from: '', replyTo: '', subject: 'EmailJenkinsPipeline', to: 'shandba81@gmail.com'
+   }
    }

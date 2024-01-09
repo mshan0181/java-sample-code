@@ -1,0 +1,17 @@
+node ('master') {
+   stage('Code_checkout') {
+   git url: 'https://github.com/mshan0181/java-sample-code.git'
+   }
+   stage('SQL_script_runner') { 
+   echo 'SQLPlusRunner running user define script for shandba@client_access'
+   step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select * from v$version'])
+   step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
+   step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])
+   }   
+   stage('Email_file_content') {
+   emailext attachLog: true, attachmentsPattern: 'tablespace_usage_logfile.txt',
+                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
+                recipientProviders: [developers(), requestor()],
+                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
+   }      
+}

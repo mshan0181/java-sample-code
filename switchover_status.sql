@@ -21,6 +21,6 @@ select tablespace_name, allocated, freespace,
     from dba_data_files a
     group by a.tablespace_name
   )
-where (allocated-freespace)/maxsize*100 > 90
+where (allocated-freespace)/maxsize*100 > 30
   order by 1;
 spool off 

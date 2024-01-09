@@ -5,7 +5,7 @@ col allocated format 9999990.99
 col freespace format 9999990.99
 col maxsize format 9999990.99
 col pctused format 90.99
-spool tablespace_usage_logfile
+spool tablespace_usage_logfile.log
 set feed off
 set lines 120 pages 1000
 col tablespace_name format a20

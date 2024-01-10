@@ -1,25 +1,19 @@
 pipeline {
-    agent { label 'master' }
-    
+    agent { label 'master' }    
     stages {
         stage('Download') {
             steps {
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select * from v$version'])
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])
-            }
+                   }
+                }    
+           }
+   post {
+       success {
+       emailext attachmentsPattern: 'tablespace_usage_logfile.log', body: '''${SCRIPT, template="groovy-html.template"}''', 
+       subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful", 
+       mimeType: 'text/html',to: "mshan011181@gmail.com"
+               }      
         }
-    }
-    post {
-        always {
-                     
-            echo 'I will always say Hello again!'               
-            emailext attachLog: true, attachmentsPattern: 'tablespace_usage_logfile.txt',
-                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
-                recipientProviders: [developers(), requestor()],
-                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
-            
-        }
-    }
 }
-

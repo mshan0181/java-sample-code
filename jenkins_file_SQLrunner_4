@@ -8,7 +8,6 @@ pipeline {
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])
                    }
                 }
-
           stage('Email-attachement') {
             when { expression { return fileExists ('tablespace_usage_logfile.html') } }  
             steps {                                               
@@ -18,12 +17,14 @@ pipeline {
                    to: 'mshan011181@gmail.com'                   
                   }
               } 
-                      stage('Delete tablespace_usage_logfile.html file') {
-                      if (fileExists('tablespace_usage_logfile.html')) {
-                      new File('tablespace_usage_logfile.html').delete()
-                        } else {
-                        println "tablespace_usage_logfile.html file not found"
-                              }
-                           }         
+           stage('Delete tablespace_usage_logfile.html file') {
+                steps {
+                          if (fileExists('tablespace_usage_logfile.html')) {
+                          new File('tablespace_usage_logfile.html').delete()
+                          } else {
+                                  println "tablespace_usage_logfile.html file not found"
+                                    }
+                              }         
+                     }
         }
 }

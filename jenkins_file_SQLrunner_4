@@ -17,17 +17,6 @@ pipeline {
                    subject: "Tablespace alert  -Critical threshold reaching 90% ",
                    to: 'mshan011181@gmail.com'                   
                   }
-              } 
-                 stage('Delete tablespace_usage_logfile.html file') {
-                   steps {
-                           script {
-                               if (fileExists('tablespace_usage_logfile.html')) {
-                                  new File('tablespace_usage_logfile.html').delete()
-                                       }  else {
-                                          echo 'No file found'
-                                                 } 
-                                  }
-                         }         
-                     }
+              }                 
         }
 }

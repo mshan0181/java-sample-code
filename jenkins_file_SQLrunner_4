@@ -18,7 +18,7 @@ pipeline {
                    to: 'mshan011181@gmail.com'                   
                   }
               } 
-                 stage('Delete tablespace_usage_logfile.html_file') {
+                 stage('Delete tablespace_usage_logfile.html file') {
                    steps {
                            script {
                                if (fileExists('tablespace_usage_logfile.html')) {

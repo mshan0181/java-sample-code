@@ -14,7 +14,8 @@ pipeline {
             steps {     
                        script {  
                                bat 'type tablespace_usage_logfile.log | find /c "TABLESPACE_NAME" > temp.txt'  
-                               bat 'set /p TABLESPACE_PARAM=<temp.txt'                               
+                               bat 'set /p TABLESPACE_PARAM=<temp.txt' 
+                               bat 'echo  %TABLESPACE_PARAM%'                              
                                if ( TABLESPACE_PARAM.isEmpty()​​ ) {
                                 echo 'There are no records in file with no Tablespace details recorded for Alert'
                                       }  else {

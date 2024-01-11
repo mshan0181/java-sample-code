@@ -1,3 +1,4 @@
+
 pipeline {
     agent { label 'master' }    
     stages {
@@ -18,12 +19,14 @@ pipeline {
                    to: 'mshan011181@gmail.com'                   
                   }
               } 
-                 stage('Delete tablespace_usage_logfile.html file') {
+                 stage('Delete tablespace_usage_logfile.html_file') {
                    steps {
-                          if (fileExists 'tablespace_usage_logfile.html') {
+                          if (fileExists('tablespace_usage_logfile.html')) {
                                   new File('tablespace_usage_logfile.html').delete()
-                                    } 
-                         }         
+                                   }  else {
+                                          echo 'No file found'
+                                                 } 
+                          }         
                      }
         }
 }

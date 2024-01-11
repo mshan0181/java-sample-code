@@ -5,7 +5,6 @@ col allocated format 9999990.99
 col freespace format 9999990.99
 col maxsize format 9999990.99
 col pctused format 90.99
-spool tablespace_usage_logfile.log
 set feed off
 set lines 120 pages 1000
 col tablespace_name format a20
@@ -13,6 +12,9 @@ col allocated format 9999990.99
 col freespace format 9999990.99
 col maxsize format 9999990.99
 col pctused format 90.99
+set pages 500
+SET MARKUP HTML ON  
+spool tablespace_usage_logfile.html
 select tablespace_name, allocated, freespace,
   (allocated-freespace)/maxsize*100 as pctused, maxsize
   from

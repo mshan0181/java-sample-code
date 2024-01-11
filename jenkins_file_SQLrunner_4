@@ -1,4 +1,3 @@
-
 pipeline {
     agent { label 'master' }    
     stages {
@@ -21,12 +20,14 @@ pipeline {
               } 
                  stage('Delete tablespace_usage_logfile.html_file') {
                    steps {
-                          if (fileExists('tablespace_usage_logfile.html')) {
+                           script {
+                               if (fileExists('tablespace_usage_logfile.html')) {
                                   new File('tablespace_usage_logfile.html').delete()
-                                   }  else {
+                                       }  else {
                                           echo 'No file found'
                                                  } 
-                          }         
+                                  }
+                         }         
                      }
         }
 }

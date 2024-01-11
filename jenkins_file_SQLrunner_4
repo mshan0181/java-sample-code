@@ -11,12 +11,21 @@ pipeline {
 
           stage('Email-attachement') {
             when { expression { return fileExists ('tablespace_usage_logfile.html') } }  
-            steps {                                               
-                   emailext mimeType: 'text/html',
-                   body: '${FILE, path="tablespace_usage_logfile.html"}',
-                   subject: "Tablespace alert  -Critical threshold reaching 90% ",
-                   to: 'mshan011181@gmail.com'                   
+            steps {     
+                       script {  
+                               bat 'type tablespace_usage_logfile.log | find /c "TABLESPACE_NAME" > temp.txt'  
+                               bat 'set /p TABLESPACE_PARAM=<temp.txt'                               
+                               if ( TABLESPACE_PARAM.isEmpty()​​ ) {
+                                echo 'There are no records in file with no Tablespace details recorded for Alert'
+                                      }  else {
+                                             emailext mimeType: 'text/html',
+                                              body: '${FILE, path="tablespace_usage_logfile.html"}',
+                                              subject: "Tablespace alert  -Critical threshold reaching 90% ",
+                                              to: 'mshan011181@gmail.com'                               
+                                                 }  
+                              }                 
                   }
-              }                 
-        }
+             } 
+                 
+   }
 }

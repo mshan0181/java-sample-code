@@ -1,3 +1,251 @@
+https://copyprogramming.com/howto/how-to-delete-a-particular-file-in-jenkins-workspace-via-jenkins-groovy-script
+https://copyprogramming.com/howto/how-to-delete-a-particular-file-in-jenkins-workspace-via-jenkins-groovy-script
+https://copyprogramming.com/howto/how-to-delete-a-particular-file-in-jenkins-workspace-via-jenkins-groovy-script
+https://copyprogramming.com/howto/how-to-delete-a-particular-file-in-jenkins-workspace-via-jenkins-groovy-script
+
+https://copyprogramming.com/howto/jenkins-pipeline-if-else-not-working
+https://copyprogramming.com/howto/jenkins-pipeline-if-else-not-working
+https://copyprogramming.com/howto/jenkins-pipeline-if-else-not-working
+https://copyprogramming.com/howto/jenkins-pipeline-if-else-not-working
+https://copyprogramming.com/howto/jenkins-pipeline-if-else-not-working
+
+
+
+SQL-- RUNNER --3 
+######################
+pipeline {
+    agent { label 'master' }    
+    stages {
+        stage('Download') {
+            steps {
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select * from v$version'])
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])
+                   }
+                }    
+           }
+   post {
+       success {
+       emailext attachmentsPattern: 'tablespace_usage_logfile.log', body: '''${SCRIPT, template="groovy-html.template"}''',  
+       subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful", 
+       mimeType: 'text/html',to: "mshan011181@gmail.com"
+               }      
+        }
+}
+
+
+SQLL--RUNNER --4
+#############################
+
+pipeline {
+    agent { label 'master' }    
+    stages {
+        stage('Download') {
+            steps {
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select * from v$version'])
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])
+                   }
+                }
+
+          stage('Email-attachement') {
+            steps {
+                    emailext attachmentsPattern: 'tablespace_usage_logfile.log', body: 'Please check attached file for Tablespace Report', 
+                    subject: "Tablespace alert  -Critical threshold reaching 90% ", 
+                    mimeType: 'text/html',to: "mshan011181@gmail.com"
+                   }
+                }
+           }
+}
+
+
+SCRIPT--RUNNER 4 --->> CLEANUP workspace --->>>>
+################################################################
+
+pipeline {
+    agent { label 'master' }    
+    stages {
+        stage('Download') {
+            steps {
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select * from v$version'])
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])
+                   }
+                }
+
+          stage('Email-attachement') {
+            steps {
+                   emailext mimeType: 'text/html',
+                   body: '${FILE, path="tablespace_usage_logfile.html"}',
+                   subject: "Tablespace alert  -Critical threshold reaching 90% ",
+                   to: 'mshan011181@gmail.com'
+                    }
+                }
+          stage('Cleanup-workspace') {
+            steps {
+                    cleanWs() 
+                   }
+                } 
+           }
+}
+
+
+
+SQL -- SCRIPT--FILE -->>>>>>>>>>>>>>>>>>>
+################################################
+
+
+set feed off
+set lines 120 pages 1000
+col tablespace_name format a20
+col allocated format 9999990.99
+col freespace format 9999990.99
+col maxsize format 9999990.99
+col pctused format 90.99
+spool tablespace_usage_logfile.log
+set feed off
+set lines 120 pages 1000
+col tablespace_name format a20
+col allocated format 9999990.99
+col freespace format 9999990.99
+col maxsize format 9999990.99
+col pctused format 90.99
+select tablespace_name, allocated, freespace,
+  (allocated-freespace)/maxsize*100 as pctused, maxsize
+  from
+  (
+    select a.tablespace_name,
+      sum(a.bytes)/1024/1024 as allocated,
+      (
+        select nvl(sum(b.bytes)/1024/1024,0)
+        from dba_free_space b
+        where b.tablespace_name = a.tablespace_name
+      ) as freespace,
+      sum(decode(a.maxbytes,0,a.bytes,a.maxbytes))/1024/1024 as maxsize
+    from dba_data_files a
+    group by a.tablespace_name
+  );
+spool off 
+
+
+
+@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+--->>> EMAIL extension --
+--->>  EMAIL extension template -->>
+-->> EMAIL APP password -->> save -->>
+
+-->> SMTP PORT -->> 25
+--->>>> SMTP port -->>>> 465 
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+node {
+        stage('Writing html file')
+        {
+        sh 'echo "<html>" >> myfile.html'
+        sh 'echo "<header><title> This is the title</title></header>" >> myfile.html'
+        sh 'echo "<body> how do you do? </body>" >> myfile.html'
+        sh 'echo "</html>" >> myfile.html'
+        sh 'ls -al myfile.html'
+        sh 'head -1 myfile.html'
+        }
+        stage('Email')
+        {
+        env.ForEmailPlugin = env.WORKSPACE
+        emailext mimeType: 'text/html',
+        body: '${FILE, path="myfile.html"}',
+        subject: currentBuild.currentResult + " : " + env.JOB_NAME,
+        to: 'example@example.com'
+        }
+    }
+
+
+@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ steps {
+                    emailext attachmentsPattern: 'tablespace_usage_logfile.log', body: 'Please check attached file for Tablespace Report', 
+                    subject: "Tablespace alert  -Critical threshold reaching 90% ", 
+                    mimeType: 'text/html',to: "mshan011181@gmail.com"
+                   }
+
+
+@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+        env.ForEmailPlugin = env.WORKSPACE
+        emailext mimeType: 'text/html',
+        body: '${FILE, path="tablespace_usage_logfile.log"}',
+        subject: "Tablespace alert  -Critical threshold reaching 90% ",
+        to: 'mshan011181@gmail.com'
+
+
+@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+SQLPLUS -S -M "HTML ON TABLE 'BORDER="2"'" HR/your_password@Oracle_sid @C:\d\departments.sql > report3.html
+--Save in file Departments.sql
+Select * from hr.departments where department_id < 20;
+EXIT
+
+
+
+
+set pages 500
+SET MARKUP HTML ON
+spool report1.html
+Select * from hr.departments where department_id < 20;
+spool off
+
+
+@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+@@@@@@@@@@@@@
+
+
+
+stage('test3') {
+            if (env.BRANCH_NAME == 'master') {
+                echo 'I only execute on the master branch'
+            } else {
+                echo 'I execute elsewhere'
+            }                        
+
+
+
+@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@
+
+def exists = fileExists '/root/elp/test.php'
+if (exists) {
+    sh "LINUX SHELL COMMAND"
+} else {
+    println "File doesn't exist"
+}
+
+
+
+
+@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@
+
+stage('Clean Work Space') {
+           cleanWs()           
+       }
+
+
+@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
 pipeline {
     agent { label 'master' }    
     stages {
@@ -18,5 +266,82 @@ pipeline {
                    to: 'mshan011181@gmail.com'                   
                   }
               }         
+        }
+}
+
+######
+@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+stage('Cleanup-workspace') {
+            steps {
+                    cleanWs() 
+                   }
+                } 
+
+@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+##############
+                                         sh "LINUX SHELL COMMAND"
+                                      } else {
+                                           println "File doesn't exist"
+
+
+
+@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+stage ('File Dependent stage'){
+ when { expression { return fileExists ('myfile') } }
+    steps {
+           echo "file exists"
+          }
+    }
+}
+
+
+@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+stage('Delete test.zip file') {
+    if (fileExists('test.zip')) {
+        new File('test.zip').delete()
+    } else {
+        println "test.zip file not found"
+    }
+}
+
+
+
+@@@@@@@@@@@@@@@@@
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+pipeline {
+    agent { label 'master' }    
+    stages {
+        stage('Download') {
+            steps {
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select * from v$version'])
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])
+                   }
+                }
+
+          stage('Email-attachement') {
+            when { expression { return fileExists ('tablespace_usage_logfile.html') } }  
+            steps {                                               
+                   emailext mimeType: 'text/html',
+                   body: '${FILE, path="tablespace_usage_logfile.html"}',
+                   subject: "Tablespace alert  -Critical threshold reaching 90% ",
+                   to: 'mshan011181@gmail.com'                   
+                  }
+              } 
+                      stage('Delete tablespace_usage_logfile.html file') {
+                      if (fileExists('tablespace_usage_logfile.html')) {
+                      new File('tablespace_usage_logfile.html').delete()
+                        } else {
+                        println "tablespace_usage_logfile.html file not found"
+                              }
+                           }         
         }
 }

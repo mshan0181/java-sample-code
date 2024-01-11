@@ -17,5 +17,10 @@ pipeline {
                    to: 'mshan011181@gmail.com'
                     }
                 }
+          stage('Cleanup-html-logfile') {
+            steps {
+                   del tablespace_usage_logfile.html
+                   }
+                } 
            }
 }

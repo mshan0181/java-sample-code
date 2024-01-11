@@ -10,7 +10,7 @@ pipeline {
                 }
           stage('Email-attachement') {
             when { expression { return fileExists ('tablespace_usage_logfile.html') } }  
-            steps {     
+                steps {     
                        script {  
                                bat '''
                                type tablespace_usage_logfile.log | find /c "TABLESPACE_NAME" > temp.txt'  
@@ -26,7 +26,8 @@ pipeline {
                                               subject: "Tablespace alert  -Critical threshold reaching 90% ",
                                               to: 'mshan011181@gmail.com'                               
                                                  }  
-                              }                 
+                              }    
+                    }
                   }
              } 
                  

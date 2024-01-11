@@ -45,4 +45,4 @@ FROM dba_segments
 GROUP BY tablespace_name) tu
 WHERE df.tablespace_name = tu.tablespace_name
 AND round(100 * ((df.totalspace - tu.totalusedspace) / df.totalspace)) < 10;
-spool off 
+spool off

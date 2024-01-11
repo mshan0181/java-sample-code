@@ -12,7 +12,7 @@ pipeline {
           stage('Email-attachement') {
             steps {
                    emailext mimeType: 'text/html',
-                   body: '${FILE, path="tablespace_usage_logfile.log"}',
+                   body: '${FILE, path="tablespace_usage_logfile.html"}',
                    subject: "Tablespace alert  -Critical threshold reaching 90% ",
                    to: 'mshan011181@gmail.com'
                     }

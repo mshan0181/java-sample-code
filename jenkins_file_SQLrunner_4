@@ -19,11 +19,14 @@ pipeline {
               } 
            stage('Delete tablespace_usage_logfile.html file') {
                 steps {
-                       step(if (fileExists('tablespace_usage_logfile.html')) {
-                          new File('tablespace_usage_logfile.html').delete()
-                          } else {
-                                  println "tablespace_usage_logfile.html file not found"
-                                    })
+                       step(
+                             [if (fileExists('tablespace_usage_logfile.html')) {
+                             new File('tablespace_usage_logfile.html').delete()
+                                   } else {
+                                         println "tablespace_usage_logfile.html file not found"
+                                             }
+                                           ]
+                                    )
                       }         
                    }
         }

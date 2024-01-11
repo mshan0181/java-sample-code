@@ -11,7 +11,7 @@ pipeline {
 
           stage('Email-attachement') {
             steps {
-                    emailext attachmentsPattern: 'tablespace_usage_logfile.log', body: '''${SCRIPT, template="groovy-html.template"}''', 
+                    emailext attachmentsPattern: 'tablespace_usage_logfile.log', body: 'Please check attached file for Tablespace Report', 
                     subject: "Tablespace alert  -Critical threshold reaching 90% ", 
                     mimeType: 'text/html',to: "mshan011181@gmail.com"
                    }

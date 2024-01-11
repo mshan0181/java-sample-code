@@ -7,13 +7,14 @@ pipeline {
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])
                    }
-                }    
+                }
+
+          stage('Email-attachement') {
+            steps {
+                    emailext attachmentsPattern: 'tablespace_usage_logfile.log', body: '''${SCRIPT, template="groovy-html.template"}''', 
+                    subject: "Tablespace alert  -Critical threshold reaching 90% ", 
+                    mimeType: 'text/html',to: "mshan011181@gmail.com"
+                   }
+                }
            }
-   post {
-       success {
-       emailext attachmentsPattern: 'tablespace_usage_logfile.log', body: '''${SCRIPT, template="groovy-html.template"}''', 
-       subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful", 
-       mimeType: 'text/html',to: "mshan011181@gmail.com"
-               }      
-        }
 }

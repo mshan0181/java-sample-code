@@ -17,9 +17,9 @@ pipeline {
                    to: 'mshan011181@gmail.com'
                     }
                 }
-          stage('Cleanup-html-logfile') {
+          stage('Cleanup-workspace') {
             steps {
-                   del tablespace_usage_logfile.html
+                    cleanWs() 
                    }
                 } 
            }

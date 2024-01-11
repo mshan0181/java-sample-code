@@ -15,19 +15,19 @@ col pctused format 90.99
 set pages 500
 SET MARKUP HTML ON  
 spool tablespace_usage_logfile.html
-select tablespace_name, allocated, freespace,
-  (allocated-freespace)/maxsize*100 as pctused, maxsize
-  from
-  (
-    select a.tablespace_name,
-      sum(a.bytes)/1024/1024 as allocated,
-      (
-        select nvl(sum(b.bytes)/1024/1024,0)
-        from dba_free_space b
-        where b.tablespace_name = a.tablespace_name
-      ) as freespace,
-      sum(decode(a.maxbytes,0,a.bytes,a.maxbytes))/1024/1024 as maxsize
-    from dba_data_files a
-    group by a.tablespace_name
-  );
+
+SELECT df.tablespace_name "Tablespace",
+totalusedspace "Used MB",
+(df.totalspace - tu.totalusedspace) "Free MB",
+df.totalspace "Total MB",
+round(100 * ((df.totalspace - tu.totalusedspace) / df.totalspace)) "Pct. Free"
+FROM (SELECT tablespace_name, round(SUM(bytes) / 1048576) TotalSpace
+FROM dba_data_files
+GROUP BY tablespace_name) df,
+(SELECT round(SUM(bytes) / (1024 * 1024)) totalusedspace,
+tablespace_name
+FROM dba_segments
+GROUP BY tablespace_name) tu
+WHERE df.tablespace_name = tu.tablespace_name
+AND round(100 * ((df.totalspace - tu.totalusedspace) / df.totalspace)) < 80;
 spool off 

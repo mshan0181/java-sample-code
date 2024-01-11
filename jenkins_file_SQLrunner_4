@@ -11,7 +11,6 @@ pipeline {
 
           stage('Email-attachement') {
             steps {
-                   env.ForEmailPlugin = env.WORKSPACE
                    emailext mimeType: 'text/html',
                    body: '${FILE, path="tablespace_usage_logfile.log"}',
                    subject: "Tablespace alert  -Critical threshold reaching 90% ",

@@ -11,8 +11,7 @@ pipeline {
            }
    post {
        success {
-       emailext attachmentsPattern: 'tablespace_usage_logfile.log', body: '''${SCRIPT, template="groovy-html.template"}''', 
-       subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful", 
+       emailext attachmentsPattern: 'tablespace_usage_logfile.log', body: '''${SCRIPT, template="groovy-html.template"}''',        
        mimeType: 'text/html',to: "mshan011181@gmail.com"
                }      
         }

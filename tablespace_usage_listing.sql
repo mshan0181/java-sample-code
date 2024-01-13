@@ -30,6 +30,7 @@ GROUP BY tablespace_name) tu
 WHERE df.tablespace_name = tu.tablespace_name
 AND round(100 * ((df.totalspace - tu.totalusedspace) / df.totalspace)) < 60;
 spool off 
+SET MARKUP HTML OFF
 spool tablespace_usage_logfile.log
 SELECT df.tablespace_name "Tablespace",
 totalusedspace "Used MB",

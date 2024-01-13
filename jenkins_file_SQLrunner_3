@@ -11,7 +11,8 @@ pipeline {
            }
    post {
        success {
-       emailext attachmentsPattern: 'tablespace_usage_logfile.log', body: '''this is the new build modified ''',     
+       emailext attachmentsPattern: 'tablespace_usage_logfile.log',
+       body: 'this is the new build modified ',     
        mimeType: 'text/html',to: "mshan011181@gmail.com"
                }      
         }

@@ -10,12 +10,12 @@ pipeline {
                             choice(
                                 choices: ['ONE', 'TWO'], 
                                  description: 'Choice for selecing the course', 
-                                name: 'PARAMETER_01'
+                                name: 'COURSE_number'
                             ),
                             booleanParam(
                                 defaultValue: true, 
                                 description: 'Will you join the course immediately', 
-                                name: 'PARAMETER_02'
+                                name: 'Course_joining_time'
                             ),
                             text(
                                 defaultValue: '''
@@ -27,7 +27,7 @@ pipeline {
                             ),
                             string(
                                 defaultValue: 'java', 
-                                name: 'STRING-PARAMETER', 
+                                name: 'NEW_course_name', 
                                  description: 'Provide the course name to start newly ',  
                                 trim: true
                             )

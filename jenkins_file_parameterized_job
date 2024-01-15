@@ -23,7 +23,7 @@ pipeline {
                                 string parameter example
                                 ''', 
                                  description: 'Share the idea to start the new course ', 
-                                 name: 'MULTI-LINE-STRING'
+                                 name: 'Idea_regarding_new_course'
                             ),
                             string(
                                 defaultValue: 'java', 

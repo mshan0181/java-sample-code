@@ -9,23 +9,26 @@ pipeline {
                         parameters([
                             choice(
                                 choices: ['ONE', 'TWO'], 
+                                 description: 'Choice for selecing the course', 
                                 name: 'PARAMETER_01'
                             ),
                             booleanParam(
                                 defaultValue: true, 
-                                description: '', 
-                                name: 'BOOLEAN'
+                                description: 'Will you join the course immediately', 
+                                name: 'PARAMETER_02'
                             ),
                             text(
                                 defaultValue: '''
                                 this is a multi-line 
                                 string parameter example
                                 ''', 
+                                 description: 'Share the idea to start the new course ', 
                                  name: 'MULTI-LINE-STRING'
                             ),
                             string(
-                                defaultValue: 'scriptcrunch', 
+                                defaultValue: 'java', 
                                 name: 'STRING-PARAMETER', 
+                                 description: 'Provide the course name to start newly ',  
                                 trim: true
                             )
                         ])

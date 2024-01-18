@@ -4,7 +4,7 @@ node ('master') {
    }
    stage('SQL_script_runner') { 
    echo 'SQLPlusRunner running user define script for shandba@client_access'     
-   step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'expdp_export.sql',scriptContent: ''])
+   expdp hr/%hr_password%@client_access directory=DATA_PUMP_DIR dumpfile=hr_schema_2.dmp logfile=hr_schema_2.log
    bat 'type EXPDP_export.log'
    }   
 }

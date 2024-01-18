@@ -5,5 +5,6 @@ node ('master') {
    stage('SQL_script_runner') { 
    echo 'SQLPlusRunner running user define script for shandba@client_access'     
    bat 'rman target rman_test/%rman_password%@client_access cmdfile="rman_job.cmd" log="rman_bkp.log"'
+   bat 'type rman_bkp.log'
     }   
 }

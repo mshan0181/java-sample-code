@@ -4,12 +4,6 @@ node ('master') {
    }
    stage('SQL_script_runner') { 
    echo 'SQLPlusRunner running user define script for shandba@client_access'     
-   bat """
-    rman target rman_test/%rman_password%@client_access
-    run
-    {
-      backup tablespace users tag 'usertsbak';
-        }
-      """
+   bat 'rman target rman_test/rman@client_access cmdfile='C:\Users\Shanmugavelu\rman_job.cmd' log='C:\Users\Shanmugavelu\rman_bkp.log''
     }   
 }

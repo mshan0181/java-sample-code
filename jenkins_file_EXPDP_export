@@ -5,5 +5,6 @@ node ('master') {
    stage('SQL_script_runner') { 
    echo 'SQLPlusRunner running user define script for shandba@client_access'     
    step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'expdp_export.sql',scriptContent: ''])
+   bat 'type EXPDP_export.log'
    }   
 }

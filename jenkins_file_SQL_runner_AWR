@@ -7,5 +7,6 @@ node ('master') {
     bat 'echo "define INSTANCE_NO=%inst_num%" >> AWS_SQL_temp.sql'
     bat 'echo "define BEGIN_ID=%bid%" >> AWS_SQL_temp.sql'
     bat 'echo "define END_ID=%eid%" >> AWS_SQL_temp.sql'
+    bat 'type AWS_SQL_temp.sql'
        }   
 }

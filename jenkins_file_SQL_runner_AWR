@@ -4,7 +4,7 @@ node ('master') {
    }
    stage('SQL_script_runner_AWR_report') { 
    echo 'SQLPlusRunner_AWR_report running user define script for shandba@client_access'
-   bat '(echo "define DB_ID='%dbid%'" & type %AWR_report.sql%) > temp.txt'
+   bat '(echo define DB_ID\='%dbid%'" & type %AWR_report.sql%) > temp.txt'
    bat ' move /y temp.txt %AWR_report.sql%'
    bat '(echo "define INSTANCE_NO='%inst_num%'" & type %AWR_report.sql%) > temp.txt'
    bat ' move /y temp.txt %AWR_report.sql%'

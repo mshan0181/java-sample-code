@@ -8,6 +8,6 @@ node ('master') {
     bat 'echo "define BEGIN_ID=%bid%" >> AWR_SQL_temp.sql'
     bat 'echo "define END_ID=%eid%" >> AWR_SQL_temp.sql'
     bat 'type AWR_SQL_temp.sql >> AWR_report.sql'
-     
+    step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_report.sql',scriptContent: ''])   
        }   
 }

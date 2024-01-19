@@ -4,13 +4,13 @@ node ('master') {
    }
    stage('SQL_script_runner_AWR_report') { 
    echo 'SQLPlusRunner_AWR_report running user define script for shandba@client_access'
-   bat '(echo %dbid% & type %AWR_report.sql%) > temp.txt'
+   bat '(echo "define DB_ID='%dbid%'" & type %AWR_report.sql%) > temp.txt'
    bat ' move /y temp.txt %AWR_report.sql%'
-    bat '(echo %inst_num% & type %AWR_report.sql%) > temp.txt'
+   bat '(echo "define INSTANCE_NO='%inst_num%'" & type %AWR_report.sql%) > temp.txt'
    bat ' move /y temp.txt %AWR_report.sql%'
-    bat '(echo %bid% & type %AWR_report.sql%) > temp.txt'
+   bat '(echo "define BEGIN_ID='%bid%'" & type %AWR_report.sql%) > temp.txt'
    bat ' move /y temp.txt %AWR_report.sql%'
-   bat '(echo %eid% & type %AWR_report.sql%) > temp.txt'
+   bat '(echo "define BEGIN_ID='%eid%'" & type %AWR_report.sql%) > temp.txt'
    bat ' move /y temp.txt %AWR_report.sql%'
    step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_report.sql',scriptContent: ''])
    bat 'type awr_from_console.htm'

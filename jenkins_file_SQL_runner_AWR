@@ -13,8 +13,8 @@ node ('master') {
           allowMissing: false, 
           alwaysLinkToLastBuild: true, 
           keepAll: false, 
-          reportDir: "C:\Users\Shanmugavelu\.jenkins\workspace\SQL_runner_AWR_report_in_Oracle", 
-          reportFiles: "awr_from_console.htm", 
+          reportDir: 'C:\Users\Shanmugavelu\.jenkins\workspace\SQL_runner_AWR_report_in_Oracle', 
+          reportFiles: 'awr_from_console.htm', 
           reportName: '', 
           reportTitles: ''
           ])

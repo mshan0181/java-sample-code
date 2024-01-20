@@ -13,7 +13,7 @@ node ('master') {
     alwaysLinkToLastBuild: true,
     keepAll: true,
     reportDir: 'reports',
-    reportFiles: 'awr_from_console.html',
+    reportFiles: 'awr_from_console.htm',
     reportName: 'My Reports',
     reportTitles: 'The Report'])
         }   

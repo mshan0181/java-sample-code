@@ -20,4 +20,6 @@ node ('master') {
               reportFiles: 'awr_from_console.htm',
               reportName: "AWR-Report"
             ])
+           }
+       }
 }

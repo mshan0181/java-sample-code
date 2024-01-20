@@ -12,9 +12,7 @@ node ('master') {
     publishHTML (target : [allowMissing: false,
     alwaysLinkToLastBuild: true,
     keepAll: true,
-    reportDir: 'reports',
     reportFiles: 'awr_from_console.htm',
-    reportName: 'My Reports',
-    reportTitles: 'The Report'])
+    reportTitles: 'The AWR Report'])
         }   
 }

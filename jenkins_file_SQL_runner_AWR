@@ -9,6 +9,7 @@ node ('master') {
     bat 'echo define END_ID=%eid% >> AWR_SQL_temp.sql'
     bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
     step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: '']) 
-    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '%JENKINS_HOME%\jobs\SQL_runner_AWR_report_in_Oracle\builds\33\htmlreports', reportFiles: 'awr_from_console.htm', reportName: '', reportTitles: ''])
+    publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: "C:\Users\Shanmugavelu\.jenkins\jobs\SQL_runner_AWR_report_in_Oracle\builds\33\htmlreports", reportFiles: 'awr_from_console.htm', reportName: '', reportTitles: ''])
+
         }   
 }

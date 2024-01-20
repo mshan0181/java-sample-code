@@ -17,7 +17,7 @@ node ('master') {
               keepAll: true,
               reportDir: '',
               reportFiles: 'awr_from_console.html',
-              reportName: "AWR-Report"
+              reportName: "AWR-Report-for-Oracle-Database"
             ])
           }
 }

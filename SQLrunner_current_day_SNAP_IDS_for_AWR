@@ -8,7 +8,7 @@ pipeline {
         }
         stage('triggerChildJob') {
             steps {
-             echo job: "SQL_runner_AWR_report_in_Oracle"  
+            build job: "SQL_runner_AWR_report_in_Oracle", wait: true
             }
         }
     }

@@ -16,7 +16,7 @@ node ('master') {
               allowMissing: true,
               alwaysLinkToLastBuild: true,
               keepAll: true,
-              reportDir: 'target',
+              reportDir: '',
               reportFiles: 'awr_from_console.htm',
               reportName: "AWR-Report"
             ])

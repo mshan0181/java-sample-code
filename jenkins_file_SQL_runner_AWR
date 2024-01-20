@@ -11,8 +11,7 @@ node ('master') {
     step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: '']) 
            } 
      stage ('generate report') {
-        dir("source") {
-          publishHTML (target: [
+              publishHTML (target: [
               allowMissing: true,
               alwaysLinkToLastBuild: true,
               keepAll: true,
@@ -20,6 +19,5 @@ node ('master') {
               reportFiles: 'awr_from_console.htm',
               reportName: "AWR-Report"
             ])
-           }
-       }
+          }
 }

@@ -10,6 +10,6 @@ node ('master') {
     bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
     step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: '']) 
     publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: '', reportFiles: 'awr_from_console.htm', reportName: '', reportTitles: ''])
-    commandLineArguments: '/ExportSummary:"C:\Users\Shanmugavelu\.jenkins\workspace\SQL_runner_AWR_report_in_Oracle\awr_from_console.htm"'
+    commandLineArguments: 'workspace\SQL_runner_AWR_report_in_Oracle\awr_from_console.htm"'
         }   
 }

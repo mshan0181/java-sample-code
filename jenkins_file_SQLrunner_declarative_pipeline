@@ -15,6 +15,7 @@ pipeline {
 
                     // Copy the specific file to the workspace
                     bat  "git checkout origin/master -- https://github.com/mshan0181/SQL_files.git/tablespace_usage_listing.sql"
+                        }
                 }            
       }
  }

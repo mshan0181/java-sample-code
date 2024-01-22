@@ -8,12 +8,10 @@ ipeline {
                       }
            stage('Pull File') {
             steps {
-                // Use 'sh' step to run Git commands
                   script {
-                    bat "git checkout master"  // Optional: Switch to the master branch
-                    bat "git pull origin master"  // Optional: Pull the latest changes from the master branch
-                    // Copy the specific file to the workspace
-                    bat  "git checkout origin/master -- https://github.com/mshan0181/SQL_files.git/tablespace_usage_listing.sql"
+                    bat 'git checkout master'
+                    bat 'git pull origin master'
+                    bat  'git checkout origin/master -- https://github.com/mshan0181/SQL_files.git/tablespace_usage_listing.sql'
                         }
                    }   
                }

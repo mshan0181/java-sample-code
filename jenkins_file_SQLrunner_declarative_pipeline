@@ -2,14 +2,16 @@ pipeline {
     agent { label 'master' }    
   stages {
           stage('SQL-script-runner') {
-            steps {
+               steps {
+                dir('C:\Users\Shanmugavelu\.jenkins\workspace\scripts') {                            
                 checkout scmGit(
                 branches: [[name: 'master']],
                 userRemoteConfigs: [[url: 'https://github.com/mshan0181/SQL_files.git']])
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select * from v$version'])
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])
-                     }
-                  }
-           }
+                                             }
+                   }
+             }
+         }
    }

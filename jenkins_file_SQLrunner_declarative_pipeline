@@ -7,7 +7,7 @@ ipeline {
                   script {
                     bat 'git checkout master'
                     bat 'git pull origin master'
-                    bat  'git checkout origin/master -- https://github.com/mshan0181/SQL_files.git/tablespace_usage_listing.sql'
+                    bat  'git checkout origin/master -- https://github.com/mshan0181/SQL_files.git'
                         }
                    }   
                }

@@ -1,11 +1,7 @@
 ipeline {
     agent { label 'master' } 
   stages {
-          stage('SQL-script-runner') {
-                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select * from v$version'])
-                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
-                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])                                                                      
-                      }
+          
            stage('Pull File') {
             steps {
                   script {
@@ -15,5 +11,10 @@ ipeline {
                         }
                    }   
                }
+             stage('SQL-script-runner') {
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select * from v$version'])
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])                                                                      
+                   } 
       }
  }

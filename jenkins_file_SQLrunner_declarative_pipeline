@@ -1,4 +1,4 @@
-pipeline {
+ipeline {
     agent { label 'master' } 
   stages {
           stage('SQL-script-runner') {
@@ -9,13 +9,13 @@ pipeline {
            stage('Pull File') {
             steps {
                 // Use 'sh' step to run Git commands
-                script {
+                  script {
                     bat "git checkout master"  // Optional: Switch to the master branch
                     bat "git pull origin master"  // Optional: Pull the latest changes from the master branch
-
                     // Copy the specific file to the workspace
                     bat  "git checkout origin/master -- https://github.com/mshan0181/SQL_files.git/tablespace_usage_listing.sql"
                         }
-                }            
+                   }   
+               }
       }
  }

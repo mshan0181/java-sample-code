@@ -2,16 +2,19 @@ pipeline {
     agent { label 'master' } 
   stages {
           stage('SQL-script-runner') {
-               steps {
-'              ws('C:\Users\Shanmugavelu\.jenkins\workspace\SQLplus_runner_from_jenkins_file_Declarative_pipeline\scripts') {
-                checkout scmGit(
-                branches: [[name: 'master']],
-                userRemoteConfigs: [[url: 'https://github.com/mshan0181/SQL_files.git']])
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select * from v$version'])
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
-                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])                                            
-                                  }
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])                                                                      
                       }
-             }
-         }
-   }
+           stage('Pull File') {
+            steps {
+                // Use 'sh' step to run Git commands
+                script {
+                    bat "git checkout master"  // Optional: Switch to the master branch
+                    bat "git pull origin master"  // Optional: Pull the latest changes from the master branch
+
+                    // Copy the specific file to the workspace
+                    bat  "git checkout origin/master -- https://github.com/mshan0181/SQL_files.git/tablespace_usage_listing.sql"
+                }            
+      }
+ }

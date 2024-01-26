@@ -19,14 +19,16 @@ stages {
                            }
              } 
          stage ('generate HTML report for TOP sessions in Oracle ') {
-              publishHTML (target: [
+           Steps {
+             publishHTML (target: [
               allowMissing: true,
               alwaysLinkToLastBuild: true,
               keepAll: true,
               reportDir: '',
               reportFiles: 'top_sessions_logfile.html',
               reportName: "TOP-sessions-of-Oracle-Database"
-            ])
-          }
+            ]) 
+                  }
+              }
       }
  }

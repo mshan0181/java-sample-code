@@ -3,7 +3,11 @@ node ('master') {
      git url: 'https://github.com/mshan0181/java-sample-code.git'
         }    
   stage('SQL_script_runner_AWR_report') {  
-         withEnv(["dbidvar=2940744064"]) {
-         echo env.dbidvar   }
-             }
+         withEnv(["dbidvar=2940744064"]) 
+         withEnv(["instnum_var=1"]) 
+             {
+                echo env.dbidvar  
+                echo env.instnum_var 
+                 }
+        }
   }      

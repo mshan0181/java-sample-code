@@ -5,13 +5,15 @@ node ('master') {
     stage('SQL_script_runner_SNAPID_dynamic') {    
           step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'DBID_SNAPID_info.sql',scriptContent: ''])         
         } 
-  stage('SQL_script_runner_AWR_report') {   
-         bat 'set db_id_var=2940744064'
-         bat 'set inst_num_var=1'
-// bat 'set beg_id_var=2940744064'//
- //bat 'set end_id_var=2940744064'//
- //  bat 'echo define DB_ID=%db_id_var% > AWR_SQL_temp2.sql' //
- //  bat 'echo define INSTANCE_NO=%inst_num_var% >> AWR_SQL_temp2.sql'//
+  stage('SQL_script_runner_AWR_report') { 
+                when {
+                expression { params.db_id_var == "2940744064" }
+                expression { params.inst_num_var == "1" }
+                expression { params.beg_id_var == "249" }
+                expression { params.end_id_var == "251" }  
+                         }
+              bat 'echo define DB_ID=%db_id_var% > AWR_SQL_temp2.sql' 
+              bat 'echo define INSTANCE_NO=%inst_num_var% >> AWR_SQL_temp2.sql'
               bat 'echo define BEGIN_ID=%beg_id_var% >> AWR_SQL_temp2.sql'
               bat 'echo define END_ID=%end_id_var% >> AWR_SQL_temp2.sql'
               bat 'type AWR_report.sql >> AWR_SQL_temp2.sql'

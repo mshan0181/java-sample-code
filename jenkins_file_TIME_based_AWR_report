@@ -19,6 +19,7 @@ node ('master') {
                echo env.instnum_var  
                bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql' 
                                            }
+     bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
      step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])
         }
   }      

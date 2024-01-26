@@ -5,14 +5,14 @@ node ('master') {
   stage('SQL_script_runner_AWR_report') {  
             // Define an integer variable
         def dbidvar = 2940744064
-         echo  db_id_var
+         echo  dbidvar
         def instnumvar = 1
-          echo inst_num_var
+          echo instnum_var
         def begidvar = 249
-          echo beg_id_var
+          echo begid_var
         def endidvar = 251
             echo end_id_var
-              bat 'echo define DB_ID=%db_idvar% > AWR_SQL_temp2.sql' 
+              bat 'echo define DB_ID=%dbidvar% > AWR_SQL_temp2.sql' 
               bat 'echo define INSTANCE_NO=%instnumvar% >> AWR_SQL_temp2.sql'
               bat 'echo define BEGIN_ID=%begidvar% >> AWR_SQL_temp2.sql'
               bat 'echo define END_ID=%endidvar% >> AWR_SQL_temp2.sql'

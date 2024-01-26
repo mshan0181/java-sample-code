@@ -7,13 +7,14 @@ node ('master') {
           
            } 
     stage('SQL_script_runner_AWR_report') {    
-           bat 'set /p dbid=  < DB_id_info.log'
+           bat 'set /p db_id_var= < DB_id_info.log'
+           bat 'set /p inst_num= < INST_no_info.log'
            bat 'set /p beg_id_var= < snapid_BEGIN_id.log'
            bat 'set /p end_id_var= < snapid_END_id.log'   
-              bat 'echo define DB_ID=%dbid% > AWR_SQL_temp.sql' 
+              bat 'echo define DB_ID=%db_id_var% > AWR_SQL_temp.sql' 
               bat 'echo define INSTANCE_NO=%inst_num% >> AWR_SQL_temp.sql'
-              bat 'echo define BEGIN_ID=%bid% >> AWR_SQL_temp.sql'
-              bat 'echo define END_ID=%eid% >> AWR_SQL_temp.sql'
+              bat 'echo define BEGIN_ID=%beg_id_var% >> AWR_SQL_temp.sql'
+              bat 'echo define END_ID=%end_id_var% >> AWR_SQL_temp.sql'
               bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
        step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: '']) 
            } 

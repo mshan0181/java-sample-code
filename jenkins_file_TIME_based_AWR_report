@@ -5,12 +5,6 @@ node ('master') {
   stage('SQL_script_runner_AWR_report') {  
             // Define an integer variable
         def dbidvar = 2940744064
-         echo  dbidvar
-        def instnumvar = 1
-          echo instnum_var
-        def begidvar = 249
-          echo begid_var
-        def endidvar = 251
-            echo end_id_var
+         bat 'echo  %{dbidvar}%'      
                  }
   }      

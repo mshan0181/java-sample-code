@@ -1,6 +1,6 @@
 node ('master') {
             // Specify the path to your file
-            def filePath = 'C:\Users\Shanmugavelu\.jenkins\workspace\AWR_report_generation_TIME_based_daily_RUN/snapid_END_id.log'
+            def filePath = 'snapid_END_id.log'
              // Read the content of the file into a variable
             def fileContent = readFile(file: filePath).trim()
             // Display the variable content

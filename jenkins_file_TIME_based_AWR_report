@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    stages {
+        stage('Setup parameters') {
+            steps {
+                script { 
+                    properties([
+                        parameters([
+                               string(                                
+                                name: 'DB_ID', 
+                                description: 'Enter the DB_ID of the database ',  
+                                trim: true
+                                )              
+                           ])
+                        ])
+                      }
+                    }
+                }
+            stage('Ibuilt-params-for-SNAPID') 
+      }   
+}

@@ -6,10 +6,10 @@ node ('master') {
           step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'DBID_SNAPID_info.sql',scriptContent: ''])         
         } 
   stage('SQL_script_runner_AWR_report') {   
-   bat '  for /f %i in ('type DB_id_info.log') do set db_id_var=%i '
-   bat '  for /f %i in ('type INST_no_info.log') do set inst_num_var=%i '
-   bat '  for /f %i in ('type snapid_BEGIN_id.log') do set beg_id_var=%i '
-   bat '  for /f %i in ('type snapid_END_id.log') do set end_id_var=%i '
+   bat 'set db_id_var=2940744064'
+ bat 'set inst_num_var=2940744064'
+ bat 'set beg_id_var=2940744064'
+ bat 'set end_id_var=2940744064'
               bat 'echo define DB_ID=%db_id_var% > AWR_SQL_temp.sql' 
               bat 'echo define INSTANCE_NO=%inst_num_var% >> AWR_SQL_temp.sql'
               bat 'echo define BEGIN_ID=%beg_id_var% >> AWR_SQL_temp.sql'

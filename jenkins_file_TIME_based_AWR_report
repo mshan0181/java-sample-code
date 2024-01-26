@@ -12,21 +12,5 @@ node ('master') {
           echo begid_var
         def endidvar = 251
             echo end_id_var
-              bat 'echo define DB_ID=%dbidvar% > AWR_SQL_temp2.sql' 
-              bat 'echo define INSTANCE_NO=%instnumvar% >> AWR_SQL_temp2.sql'
-              bat 'echo define BEGIN_ID=%begidvar% >> AWR_SQL_temp2.sql'
-              bat 'echo define END_ID=%endidvar% >> AWR_SQL_temp2.sql'
-              bat 'type AWR_report.sql >> AWR_SQL_temp2.sql'
-            step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp2.sql',scriptContent: '']) 
-           } 
-     stage ('generate report') {
-              publishHTML (target: [
-              allowMissing: true,
-              alwaysLinkToLastBuild: true,
-              keepAll: true,
-              reportDir: '',
-              reportFiles: 'awr_from_console.html',
-              reportName: "AWR-Report-for-Oracle-Database"
-              ])
-           }
-  }
+                 }
+  }      

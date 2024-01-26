@@ -19,11 +19,11 @@ node ('master') {
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                            }
                   // Specify the path to your file   
-                      def filePath ='snapid_END_id.log'
+                      def filePath =''
                   // Read the content of the file into a variable
-                     def begid_var = readFile(file: filePath).trim()
+                     def begid_var = readFile(snapid_BEGIN_id.log: filePath).trim()
                   // Display the variable content
-                      echo "Content of the file: ${fileContent}"    
+                      echo "Content of the file: %{begid_var}%"    
            bat 'echo define END_ID=%begid_var% >> AWR_SQL_temp.sql'
            bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
           step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])

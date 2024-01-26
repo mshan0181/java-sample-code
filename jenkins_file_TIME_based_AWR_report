@@ -28,6 +28,3 @@ node ('master') {
               ])
            }
   }
-
-INST_no_info.log
-INST_no_info.log

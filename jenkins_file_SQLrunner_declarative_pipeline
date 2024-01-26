@@ -18,7 +18,7 @@ stages {
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'top_sessions.sql',scriptContent: ''])                                                                       
                            }
              } 
-         stage ('generate HTML report for TOP sessions in Oracle ') {
+         stage ('generate-HTML-report-TOP-SQL-Oracle') {
            Steps {
              publishHTML (target: [
               allowMissing: true,

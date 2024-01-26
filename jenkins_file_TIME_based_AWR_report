@@ -1,5 +1,11 @@
 node ('master') {
-     stage('Code_checkout') {
+            // Specify the path to your file
+            def filePath = 'C:\Users\Shanmugavelu\.jenkins\workspace\AWR_report_generation_TIME_based_daily_RUN/snapid_END_id.log'
+             // Read the content of the file into a variable
+            def fileContent = readFile(file: filePath).trim()
+            // Display the variable content
+              //  echo "Content of the file: ${fileContent}"
+   stage('Code_checkout') {
      git url: 'https://github.com/mshan0181/java-sample-code.git'
         }    
   stage('SQL_script_runner_SNAPID_dynamic') {    
@@ -17,8 +23,7 @@ node ('master') {
             withEnv(["begid_var=249"]) {
                echo env.instnum_var  
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
-                                           }
-              env.endid_var = read(file: "./snapid_END_id.log")
+                                           }           
            bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql'
            bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
            step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])

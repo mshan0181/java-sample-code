@@ -5,8 +5,10 @@ node ('master') {
     stage('SQL_script_runner_SNAPID_dynamic') {    
           step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'DBID_SNAPID_info.sql',scriptContent: ''])         
         } 
-    stage('SQL_script_runner_AWR_report') {   
-          bat '''call dbid_snapid_generate.bat'''       
+  stage('build') {
+    bat "dbid_snapid_generate.bat"
+      }
+  stage('SQL_script_runner_AWR_report') {   
               bat 'echo define DB_ID=%db_id_var% > AWR_SQL_temp.sql' 
               bat 'echo define INSTANCE_NO=%inst_num% >> AWR_SQL_temp.sql'
               bat 'echo define BEGIN_ID=%beg_id_var% >> AWR_SQL_temp.sql'

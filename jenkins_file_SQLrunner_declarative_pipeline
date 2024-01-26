@@ -26,7 +26,7 @@ stages {
               alwaysLinkToLastBuild: true,
               keepAll: true,
               reportDir: '',
-              reportFiles: 'top_sessions_logfile.html','top_SQLs_by_CPU.html',
+              reportFiles: 'top_sessions_logfile.html,top_SQLs_by_CPU.html',
               reportName: "TOP-sessions-of-Oracle-Database and TOP-SQLs-by-CPU"
             ]) 
                   }

@@ -16,7 +16,17 @@ stages {
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])                                                                      
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'top_sessions.sql',scriptContent: ''])                                                                       
-                  }
+                           }
              } 
+         stage ('generate HTML report for TOP sessions in Oracle ') {
+              publishHTML (target: [
+              allowMissing: true,
+              alwaysLinkToLastBuild: true,
+              keepAll: true,
+              reportDir: '',
+              reportFiles: 'top_sessions_logfile.html',
+              reportName: "TOP-sessions-of-Oracle-Database"
+            ])
+          }
       }
  }

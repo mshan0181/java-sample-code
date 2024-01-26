@@ -19,7 +19,7 @@ node ('master') {
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                            }
                env.WORKSPACE = pwd()
-               def endid_var = readFile "${env.WORKSPACE}/snapid_END_id.log"       
+               def endid_var = readFile "snapid_END_id.log"       
            bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql'
            bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
            step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])

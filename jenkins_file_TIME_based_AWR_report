@@ -4,8 +4,12 @@ node ('master') {
         }    
   stage('SQL_script_runner_AWR_report') {  
          withEnv(["dbidvar=2940744064"])  {
-                echo env.dbidvar  }
+            echo env.dbidvar 
+            bat 'echo define DB_ID=env.dbidvar > AWR_SQL_temp.sql'      
+                                                }
             withEnv(["instnum_var=1"]) {
-                echo env.instnum_var  }
+               echo env.instnum_var  
+               bat 'echo define DB_ID=env.instnum_var >> AWR_SQL_temp.sql' 
+                                           }
         }
-  }      
+  }  

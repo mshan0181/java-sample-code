@@ -19,7 +19,7 @@ stages {
                            }
              } 
          stage ('generate-HTML-report-TOP-SQL-Oracle') {
-           Steps {
+           steps {
              publishHTML (target: [
               allowMissing: true,
               alwaysLinkToLastBuild: true,

@@ -15,7 +15,8 @@ stages {
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select * from v$version'])
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'userDefined', script: '',scriptContent: 'select name from v$database'])
                 step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'tablespace_usage_listing.sql',scriptContent: ''])                                                                      
-                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'top_sessions.sql',scriptContent: ''])                                                                       
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'top_sessions.sql',scriptContent: '']) 
+                step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'top_SQLs_by_CPU.sql',scriptContent: ''])                 
                            }
              } 
          stage ('generate-HTML-report-TOP-SQL-Oracle') {
@@ -25,8 +26,8 @@ stages {
               alwaysLinkToLastBuild: true,
               keepAll: true,
               reportDir: '',
-              reportFiles: 'top_sessions_logfile.html',
-              reportName: "TOP-sessions-of-Oracle-Database"
+              reportFiles: 'top_sessions_logfile.html','top_SQLs_by_CPU.html',
+              reportName: "TOP-sessions-of-Oracle-Database and TOP-SQLs-by-CPU"
             ]) 
                   }
               }

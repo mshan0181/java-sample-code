@@ -1,10 +1,7 @@
 node ('master') {
      stage('Code_checkout') {
      git url: 'https://github.com/mshan0181/java-sample-code.git'
-       }
-    stage('SQL_script_runner_SNAPID_dynamic') {    
-          step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'DBID_SNAPID_info.sql',scriptContent: ''])         
-        } 
+       }    
   stage('SQL_script_runner_AWR_report') { 
                 when {
                 expression { params.db_id_var == "2940744064" }

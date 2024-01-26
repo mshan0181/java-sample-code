@@ -9,15 +9,15 @@ node ('master') {
                                                 }
             withEnv(["instnum_var=1"]) {
                echo env.instnum_var  
-               bat 'echo define DB_ID=%instnum_var% >> AWR_SQL_temp.sql' 
+               bat 'echo define INSTANCE_NO=%instnum_var% >> AWR_SQL_temp.sql' 
                                            }
             withEnv(["begid_var=249"]) {
                echo env.instnum_var  
-               bat 'echo define DB_ID=%begid_var% >> AWR_SQL_temp.sql' 
+               bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                            }
              withEnv(["endid_var=251"]) {
                echo env.instnum_var  
-               bat 'echo define DB_ID=%endid_var% >> AWR_SQL_temp.sql' 
+               bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql' 
                                            }
         }
   }      

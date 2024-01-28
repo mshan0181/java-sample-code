@@ -26,9 +26,9 @@ node ('master') {
          echo data
          echo data
          echo data 
-    bat "echo "from batch i=%data%""
-    bat "echo "from batch i=%data%""
-    bat "echo "from batch i=%data%""
+    bat "echo "from batch %data%""
+    bat "echo "from batch %data%""
+    bat "echo "from batch %data%""
     withEnv(["endid_var=data"]) {
                echo env.endid_var 
                bat 'echo define BEGIN_ID=%endid_var% >> AWR_SQL_temp.sql' 

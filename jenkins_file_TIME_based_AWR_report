@@ -25,11 +25,7 @@ node ('master') {
                println(data)
          echo data
          echo data
-         echo data 
-       echo "${env.data}"
-         bat '''
-           echo ${data}
-                '''
+         echo data  
       withEnv(["data"]) {
                echo data 
                bat 'echo define BEGIN_ID=%endid_var% >> AWR_SQL_temp.sql' 

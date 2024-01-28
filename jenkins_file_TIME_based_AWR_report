@@ -18,8 +18,8 @@ node ('master') {
                echo env.begid_var 
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                         }                                  
-        status = bat returnStdout: true, script: 'type snapid_END_id.log  > output'
-        output_var = readJSON('output')
+        status = bat returnStdout: true, script: 'type snapid_END_id.log  > output.txt'
+        output_var = readFile(file: "output.txt") 
    echo env.output_var
    echo %output_var%
     echo %output_var%

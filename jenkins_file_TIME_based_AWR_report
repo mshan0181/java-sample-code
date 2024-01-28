@@ -18,7 +18,8 @@ node ('master') {
                echo env.instnum_var  
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                         }                                  
-           def endid_var = bat returnStdout: true, script: 'type snapid_END_id.log  > output'
+           status = bat returnStdout: true, script: 'type snapid_END_id.log  > output'
+           endid_var = readJSON('output')
            bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql'
            bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
            step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])

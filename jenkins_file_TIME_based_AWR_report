@@ -19,10 +19,8 @@ node ('master') {
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                         }                                  
                  status = bat returnStdout: true, script: 'type snapid_END_id.log  > output.txt'
-               def  final String output_var = readFile(file: "output.txt")
-               def myValues = extractLines(readFile(file:"output.txt"))
-                   echo env.output_var 
-                   echo env.output_var 
+               def data = readFile(file: 'output.txt')
+               println(data)
           // bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql' //
            bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
            step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])

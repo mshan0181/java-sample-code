@@ -25,7 +25,8 @@ node ('master') {
                println(data)
          echo data
          echo data
-         echo data     
+         echo data 
+       echo "${env.data}"
          bat '''
            echo ${data}
                 '''

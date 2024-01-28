@@ -21,8 +21,7 @@ node ('master') {
              status=bat returnStatus: true, script: 'type snapid_END_id.log  > output'
              if (status!=0) {
              endid_var = readJSON('output')
-             echo %endid_var%
-                                }
+             echo %endid_var%  }                              
            bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql'
            bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
            step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])

@@ -27,7 +27,7 @@ node ('master') {
          echo data
          echo data     
          bat '''
-           echo %{data}%
+           echo ${data}
                 '''
       withEnv(["endid_var=data"]) {
                echo env.endid_var 

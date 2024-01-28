@@ -15,12 +15,16 @@ node ('master') {
                bat 'echo define INSTANCE_NO=%instnum_var% >> AWR_SQL_temp.sql' 
                                            }
             withEnv(["begid_var=249"]) {
-               echo env.instnum_var  
+               echo env.begid_var 
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                         }                                  
-           status = bat returnStdout: true, script: 'type snapid_END_id.log  > output'
-           endid_var = readJSON('output')
-           bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql'
+        status = bat returnStdout: true, script: 'type snapid_END_id.log  > output'
+        output_var = readJSON('output')
+             withEnv(["endid_var=%output_var%"]) {
+               echo env.endid_var  
+               bat 'echo define END_ID=%env.endid_var% >> AWR_SQL_temp.sql' 
+                                        }                                  
+          // bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql' //
            bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
            step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])
         }

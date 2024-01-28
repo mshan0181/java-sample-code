@@ -19,7 +19,7 @@ node ('master') {
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                         }                                  
                  status = bat returnStdout: true, script: 'type snapid_END_id.log  > output.txt'
-                 final String output_var = readFile(file: "output.txt"))
+                 final String output_var = readFile(file: "output.txt")
                  final List myKeys = extractLines(content)
                  echo "myKeys = ${myKeys}"
                  echo env.mykeys                                                                                               

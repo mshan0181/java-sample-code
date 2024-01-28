@@ -19,11 +19,15 @@ node ('master') {
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                         }                                  
                  status = bat returnStdout: true, script: 'type snapid_END_id.log  > output.txt'
-               def endid_var = readFile(file: 'output.txt')
-               println(endid_var)
-               println(endid_var)
-               println(endid_var)
-           bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql'
+               def data = readFile(file: 'output.txt')
+               println(data)
+               println(data)
+               println(data)
+         withEnv(["endid_var=data"]) {
+               echo env.endid_var 
+               bat 'echo define BEGIN_ID=%endid_var% >> AWR_SQL_temp.sql' 
+                                        }                                  
+          // bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql' //
            bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
            step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])
         }

@@ -20,6 +20,11 @@ node ('master') {
                                         }                                  
         status = bat returnStdout: true, script: 'type snapid_END_id.log  > output'
         output_var = readJSON('output')
+   echo env.output_var
+   echo %output_var%
+    echo %output_var%
+    echo %output_var%
+     echo %output_var%
              withEnv(["endid_var=%output_var%"]) {
                echo env.endid_var  
                bat 'echo define END_ID=%env.endid_var% >> AWR_SQL_temp.sql' 

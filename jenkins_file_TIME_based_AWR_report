@@ -23,7 +23,7 @@ node ('master') {
                println(data)
                println(data)
                println(data)
-         withEnv(["endid_var=%data%"]) {
+         withEnv(["endid_var=println(data)"]) {
                echo env.endid_var 
                bat 'echo define BEGIN_ID=%endid_var% >> AWR_SQL_temp.sql' 
                                         }                                  

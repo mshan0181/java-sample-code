@@ -19,13 +19,12 @@ node ('master') {
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                         }                                  
         status = bat returnStdout: true, script: 'type snapid_END_id.log  > output.txt'
-        output_var = readFile(file: "output.txt") 
-   echo env.output_var
-   echo %output_var%
-    echo %output_var%
-    echo %output_var%
-     echo %output_var%
-             withEnv(["endid_var=%output_var%"]) {
+                  final String content = readFile(file: " output.txt")
+                  final List myKeys = extractLines(content)
+                  echo "myKeys = ${myKeys}"
+                  echo "myKeys = ${myKeys}"
+                  echo "myKeys = ${myKeys}"
+          withEnv(["endid_var=%output_var%"]) {
                echo env.endid_var  
                bat 'echo define END_ID=%env.endid_var% >> AWR_SQL_temp.sql' 
                                         }                                  

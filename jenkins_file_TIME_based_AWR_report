@@ -15,7 +15,7 @@ node ('master') {
             echo "define END_ID=${fileContent}" 
             writeFile(
                'file': 'AWR_SQL_temp.sql',
-               'text': "define DB_ID=${fileContent}"
+               'text': "define END_ID=${fileContent}"
                       )     
           withEnv(["dbid_var=2940744064"])  {
             echo env.dbid_var

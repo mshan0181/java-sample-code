@@ -56,7 +56,7 @@ node ('master') {
             ])
           }
          stage('AWR-report_TESTDB_email_attachment') {
-                  step{                                               
+                  steps{                                               
                           emailext mimeType: 'text/html',
                           body: '${FILE, path="awr_from_console.html"}',
                           subject: "AWR report for TESTDB database  ",

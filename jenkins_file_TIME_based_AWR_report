@@ -58,7 +58,7 @@ node ('master') {
          stage('AWR-report_TESTDB_email_attachment') {
                    def attachmentFilePath = 'awr_from_console.html'
                    emailext subject: 'AWR_report_for_TESTDB',
-                   body: 'This is the AWR report for Testdb , Oracle DB . Please find the attached file.',
+                   body: '${FILE, path="tablespace_usage_logfile.html"}',
                    to: 'mshan011181@gmail.com',
                    attachmentsPattern: attachmentFilePath,
                    mimeType: 'application/octet-stream'

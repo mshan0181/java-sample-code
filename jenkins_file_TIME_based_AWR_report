@@ -19,6 +19,7 @@ node ('master') {
                       )     
           withEnv(["dbid_var=2940744064"])  {
             echo env.dbid_var
+            bat 'echo  >> AWR_SQL_temp.sql'  
             bat 'echo define DB_ID=%dbid_var% >> AWR_SQL_temp.sql'      
                                                 }
             withEnv(["instnum_var=1"]) {

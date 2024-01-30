@@ -5,18 +5,7 @@ node ('master') {
   stage('SQL_script_runner_SNAPID_dynamic') {    
           step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'DBID_SNAPID_info.sql',scriptContent: ''])         
         } 
-  stage('SQL_script_runner_AWR_report') {     
-       // Specify the path to the file
-            def filePathh = 'snapid_BEGIN_id.log'
-           // Read the content of the file and assign it to a variable
-            def fileContentt = readFile(filePatht).trim()
-            // Print the content of the file
-            echo "${fileContentt}"
-            echo "define END_ID=${fileContentt}" 
-            writeFile(
-               'file': 'AWR_SQL_temp2.sql',
-               'text': "define BEGIN_ID=${fileContentt}"
-                      )     
+  stage('SQL_script_runner_AWR_report') {                                      
            // Specify the path to the file
             def filePath = 'snapid_END_id.log'
            // Read the content of the file and assign it to a variable
@@ -27,22 +16,20 @@ node ('master') {
             writeFile(
                'file': 'AWR_SQL_temp.sql',
                'text': "define END_ID=${fileContent}"
-                      )    
-               // bat 'echo(  >> AWR_SQL_temp.sql' 
-                bat 'type AWR_SQL_temp2.sql >> AWR_SQL_temp.sql'
+                      )     
           withEnv(["dbid_var=2940744064"])  {
             echo env.dbid_var
-            //bat 'echo(  >> AWR_SQL_temp.sql'  
+            bat 'echo(  >> AWR_SQL_temp.sql'  
             bat 'echo define DB_ID=%dbid_var% >> AWR_SQL_temp.sql'      
                                                 }
             withEnv(["instnum_var=1"]) {
                echo env.instnum_var  
                bat 'echo define INSTANCE_NO=%instnum_var% >> AWR_SQL_temp.sql' 
                                            }
-           // withEnv(["begid_var=292"]) {
-             //  echo env.begid_var 
-               //bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
-                 //                       }      
+            withEnv(["begid_var=292"]) {
+               echo env.begid_var 
+               bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
+                                        }      
           // bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql' //
            bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
            step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])

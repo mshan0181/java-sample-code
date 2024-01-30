@@ -7,15 +7,15 @@ node ('master') {
         } 
   stage('SQL_script_runner_AWR_report') {     
        // Specify the path to the file
-            def filePath2 = 'snapid_BEGIN_id.log'
+            def filePathh = 'snapid_BEGIN_id.log'
            // Read the content of the file and assign it to a variable
-            def fileContent2 = readFile(filePath).trim()
+            def fileContentt = readFile(filePatht).trim()
             // Print the content of the file
-            echo "${fileContent2}"
-            echo "define END_ID=${fileContent2}" 
+            echo "${fileContentt}"
+            echo "define END_ID=${fileContentt}" 
             writeFile(
                'file': 'AWR_SQL_temp2.sql',
-               'text': "define BEGIN_ID=${fileContent2}"
+               'text': "define BEGIN_ID=${fileContentt}"
                       )     
            // Specify the path to the file
             def filePath = 'snapid_END_id.log'

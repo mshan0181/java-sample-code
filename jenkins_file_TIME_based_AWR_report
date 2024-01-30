@@ -14,7 +14,7 @@ node ('master') {
                echo env.instnum_var  
                bat 'echo define INSTANCE_NO=%instnum_var% >> AWR_SQL_temp.sql' 
                                            }
-            withEnv(["begid_var=249"]) {
+            withEnv(["begid_var=287"]) {
                echo env.begid_var 
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                         }                                  

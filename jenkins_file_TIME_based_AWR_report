@@ -45,4 +45,14 @@ node ('master') {
            bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
            step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])
         }
+        stage ('generate report') {
+              publishHTML (target: [
+              allowMissing: true,
+              alwaysLinkToLastBuild: true,
+              keepAll: true,
+              reportDir: '',
+              reportFiles: 'awr_from_console.html',
+              reportName: "AWR-Report-for-Oracle-Database"
+            ])
+          }
   }  

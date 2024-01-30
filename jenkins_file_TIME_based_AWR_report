@@ -56,11 +56,8 @@ node ('master') {
             ])
           }
          stage('AWR-report_TESTDB_email_attachment') {
-                   def attachmentFilePath = 'awr_from_console.html'
-                   emailext subject: 'AWR_report_for_TESTDB',
-                   body: '${FILE, path="tablespace_usage_logfile.html"}',
-                   to: 'mshan011181@gmail.com',
-                   attachmentsPattern: attachmentFilePath,
-                   mimeType: 'application/octet-stream'
-           } 
+             emailext attachmentsPattern: 'awr_from_console.html', body: '''${SCRIPT, template="groovy-html.template"}''',
+             subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful",    
+             mimeType: 'text/html',to: "mshan011181@gmail.com"
+             } 
   }  

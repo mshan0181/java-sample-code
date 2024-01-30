@@ -56,11 +56,11 @@ node ('master') {
             ])
           }
          stage('AWR-report_TESTDB_email_attachment') {
-                  steps{                                               
-                          emailext mimeType: 'text/html',
-                          body: '${FILE, path="awr_from_console.html"}',
-                          subject: "AWR report for TESTDB database  ",
-                          to: 'mshan011181@gmail.com'                   
-                           }
+                   def attachmentFilePath = 'awr_from_console.html'
+                   emailext subject: 'AWR_report_for_TESTDB',
+                   body: 'This is the AWR report for Testdb , Oracle DB . Please find the attached file.',
+                   to: 'mshan011181@gmail.com',
+                   attachmentsPattern: attachmentFilePath,
+                   mimeType: 'application/octet-stream'
            } 
   }  

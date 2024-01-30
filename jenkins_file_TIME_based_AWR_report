@@ -28,15 +28,15 @@ node ('master') {
                                            }
            ////////////////////////////////////////////////////
               // Specify the path to the file
-            def filePath2 = 'snapid_END_id.log'
+            def filePath2 = 'snapid_BEGIN_id.log'
            // Read the content of the file and assign it to a variable
             def fileContent2 = readFile(filePath2).trim()
             // Print the content of the file
             echo "${fileContent2}"
-            echo "define END_ID=${fileContent2}" 
+            echo "define BEGIN_ID=${fileContent2}" 
             writeFile(
-               'file': 'AWR_SQL_temp_end_.sql',
-               'text': "define END_ID=${fileContent2}"
+               'file': 'AWR_SQL_temp_begin_.sql',
+               'text': "define BEGIN_ID=${fileContent2}"
                       ) 
             bat 'type  AWR_SQL_temp_begin_.sql >>  AWR_SQL_temp.sql'  
            //////////////////////////////////////////////////////////////

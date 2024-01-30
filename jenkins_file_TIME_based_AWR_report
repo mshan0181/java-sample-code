@@ -35,7 +35,7 @@ node ('master') {
             echo "${fileContent2}"
             echo "define END_ID=${fileContent2}" 
             writeFile(
-               'file': 'AWR_SQL_temp_begin_.sql',
+               'file': 'AWR_SQL_temp_end_.sql',
                'text': "define END_ID=${fileContent2}"
                       ) 
             bat 'type  AWR_SQL_temp_begin_.sql >>  AWR_SQL_temp.sql'  

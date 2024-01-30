@@ -12,7 +12,7 @@ node ('master') {
             def fileContent = readFile(filePath).trim()
             // Print the content of the file
             echo "${fileContent}"
-            echo "define DB_ID=${fileContent}" 
+            echo "define END_ID=${fileContent}" 
             writeFile(
                'file': 'AWR_SQL_temp.sql',
                'text': "define DB_ID=${fileContent}"

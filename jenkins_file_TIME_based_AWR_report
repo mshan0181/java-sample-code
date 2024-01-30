@@ -18,18 +18,17 @@ node ('master') {
                echo env.begid_var 
                bat 'echo define BEGIN_ID=%begid_var% >> AWR_SQL_temp.sql' 
                                         }                                  
-                 status = bat returnStdout: true, script: 'type snapid_END_id.log  > output.txt'
-               def data = readFile(file: 'output.txt')
-               println(data)
-               println(data)
-               println(data)
-         echo data
-         echo data
-         echo data  
-      withEnv(["data"]) {
-               echo data 
-               bat 'echo define BEGIN_ID=%endid_var% >> AWR_SQL_temp.sql' 
-                                        }                                  
+           // Specify the path to the file
+            def filePath = 'snapid_END_id.log'
+           // Read the content of the file and assign it to a variable
+            def fileContent = readFile(filePath).trim()
+            // Print the content of the file
+            echo "${fileContent}"
+            echo "define DB_ID=${fileContent}" 
+            writeFile(
+               'file': 'AWR_SQL_temp.sql',
+               'text': "define DB_ID=${fileContent}"
+                      )     
           // bat 'echo define END_ID=%endid_var% >> AWR_SQL_temp.sql' //
            bat 'type AWR_report.sql >> AWR_SQL_temp.sql'
            step([$class: 'SQLPlusRunnerBuilder',credentialsId:'shandb-priv-id', instance:'client_access',scriptType:'file', script: 'AWR_SQL_temp.sql',scriptContent: ''])

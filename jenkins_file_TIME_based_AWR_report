@@ -56,8 +56,9 @@ node ('master') {
             ])
           }
          stage('AWR-report_TESTDB_email_attachment') {
-             emailext attachmentsPattern: 'awr_from_console.html', body: '''${SCRIPT, template="groovy-html.template"}''',
-             subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful",    
-             mimeType: 'text/html',to: "mshan011181@gmail.com"
+         emailext attachmentsPattern: 'awr_from_console.html',
+         body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}",
+         recipientProviders: [developers(), requestor()],
+         subject: "AWR report for database TESTDB"
              } 
   }  

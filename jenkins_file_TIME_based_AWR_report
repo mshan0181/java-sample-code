@@ -56,7 +56,21 @@ node ('master') {
             ])
           }
          stage('AWR-report_TESTDB_email_attachment') {
-         emailext attachmentsPattern: "awr_from_console.html", body: 'AWR report attached with this email', subject: 'AWR report for TESTDB', to: 'mshan011181@gmail.com'
-    //  emailext attachmentsPattern: "tablespace_usage_logfile.html", body: 'AWR report attached with this email', subject: 'AWR report for TESTDB', to: 'mshan011181@gmail.com'                                             
+     //   emailext attachmentsPattern: "awr_from_console.html", body: 'AWR report attached with this email', subject: 'AWR report for TESTDB', to: 'mshan011181@gmail.com'//
+    //  emailext attachmentsPattern: "tablespace_usage_logfile.html", body: 'AWR report attached with this email', subject: 'AWR report for TESTDB', to: 'mshan011181@gmail.com' 
+          emailext subject: 'AWR report for TESTDB',
+                          body: '''<html>
+                                    <body>
+                                        <p style="color: #333; font-size: 16px;">Your HTML content here</p>
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td style="padding: 10px; border: 1px solid #ccc;">Table content goes here</td>
+                                            </tr>
+                                        </table>
+                                    </body>
+                                  </html>''',
+                          mimeType: 'text/html',
+                          to: 'mshan011181@gmail.com',
+                          attachmentsPattern: 'awr_from_console.html'   
              } 
   }  
